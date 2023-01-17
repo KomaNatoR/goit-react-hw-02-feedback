@@ -1,11 +1,11 @@
 
 
-const FeedbackOptions = (props) => {
+const FeedbackOptions = ({options, onLeaveFeedback}) => {
     return (
         <>
-            <button type="button">Good</button>
-            <button type="button">Neutral</button>
-            <button type="button">Bad</button>
+          <button onClick={onLeaveFeedback} type="button" id="Good">Good</button>
+          <button onClick={onLeaveFeedback} type="button" id="Neutral">Neutral</button>
+          <button onClick={onLeaveFeedback} type="button" id="Bad">Bad</button>
         </>
     );
 };
