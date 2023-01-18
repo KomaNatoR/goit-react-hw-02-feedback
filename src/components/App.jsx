@@ -18,23 +18,10 @@ class App  extends Component {
     console.dir(e.target.id);
     console.log(this.state);
 
-    switch (e.target.id) {
-      case "Good":
-        return this.setState(prevState => ({
-              good: prevState.good + 1,
-        }));
-      case "Neutral":
-        return this.setState(prevState => ({
-              neutral: prevState.neutral + 1,
-        }));
-      case "Bad":
-        return this.setState(prevState => ({
-              bad: prevState.bad + 1,
-        }));
-    
-      default:
-        break;
-    }
+    const stateKey = e.target.id;
+    this.setState(prevState => ({
+      [stateKey]: prevState[stateKey] + 1,
+    }));
   };
 
   render() {
