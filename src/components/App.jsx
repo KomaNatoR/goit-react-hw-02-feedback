@@ -2,6 +2,10 @@ import React, { Component } from "react";
 
 import FeedbackOptions from "./CaffeApp/FeedbackOptions";
 import Statistics from "./CaffeApp/Statistics";
+import Section from "./CaffeApp/Section";
+import Notification from "./CaffeApp/Notification";
+
+import { DivMain } from "./CaffeApp/expresso.styled";
 
 class App  extends Component {
   state = {
@@ -10,40 +14,45 @@ class App  extends Component {
     bad: 0       
   }
 
-  countTotalFeedback = () => this.state.good + this.state.neutral + this.state.bad;
+  countTotalFeedback = () => {
+    const { good, neutral, bad } = this.state;
+    const totalVoice = good + neutral + bad;
+    return totalVoice;
+  };
 
   countPositiveFeedbackPercentage = () => Math.round((this.state.good / this.countTotalFeedback()) * 100);
 
-  onButtonClick = (e) => {
-    console.dir(e.target.id);
-    console.log(this.state);
+  onButtonClick = (vote) => {
 
-    const stateKey = e.target.id;
     this.setState(prevState => ({
-      [stateKey]: prevState[stateKey] + 1,
+      [vote]: prevState[vote] + 1,
     }));
   };
 
   render() {
+    const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback();
+    const positivePercentage =this.countPositiveFeedbackPercentage();
+
     return (
-      <div>
-        <h2>Pleace leave feedback</h2>
+      <DivMain>
+        <Section title="Pleace leave your feedback">
+          <FeedbackOptions options={["good","neutral","bad"]} onLeaveFeedback={this.onButtonClick} />
+        </Section>
 
-        <div>
-          <FeedbackOptions options={"#"} onLeaveFeedback={this.onButtonClick} />
-        </div>
-
-        <div>
-          <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={this.countTotalFeedback()}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-            />
-        </div>
-      </div>
+        <Section title="Statistics">
+          {total === 0
+            ? <Notification message="There is no feedback" />
+            : <Statistics
+                good={good}
+                neutral={neutral}
+                bad={bad}
+                total={total}
+                positivePercentage={positivePercentage}
+              />}
+        </Section>
+      </DivMain>
     );
-  }
+  };
 };
 export default App;
