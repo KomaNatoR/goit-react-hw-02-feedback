@@ -23,6 +23,16 @@ export const DivMain = styled.div`
         border-radius: 3px;
         background-color: lightgrey;
         color: darkolivegreen;
+
+        transition: all 200ms linear;
+    }
+    button:hover {
+        cursor: pointer;
+        color: lightgrey;
+        background-color: darkolivegreen;
+    }
+    button:active {
+        scale: 0.9;
     }
     p {
         text-align: left;
