@@ -37,7 +37,7 @@ class App  extends Component {
     return (
       <DivMain>
         <Section title="Pleace leave your feedback">
-          <FeedbackOptions options={["good","neutral","bad"]} onLeaveFeedback={this.onButtonClick} />
+          <FeedbackOptions options={Object.keys(this.state)} onLeaveFeedback={this.onButtonClick} />
         </Section>
 
         <Section title="Statistics">
